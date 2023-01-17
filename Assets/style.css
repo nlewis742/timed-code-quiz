@@ -1,7 +1,7 @@
-*, *::before, *::after {
+/* *, *::before, *::after {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-}
+} */
 
 #header-content {
     display: flex;
