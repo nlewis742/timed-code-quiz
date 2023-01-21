@@ -104,7 +104,7 @@ var questions = [
         choice2: "===",
         choice3: "#",
         choice4: "<<",
-        answer: "2"
+        answer: "==="
     }
    ];
    console.log(questions);
@@ -132,10 +132,20 @@ function startGame () {
     choice2.setAttribute('id', 'choice-2');
     choice2.classList.add('user-choice');
     choice2.textContent = questions[currentQuestionIndex].choice2;
+
+    let choice3 = document.createElement('li');
+    choice3.setAttribute('id', 'choice-3');
+    choice3.classList.add('user-choice');
+    choice3.textContent = questions[currentQuestionIndex].choice3;
+
+    let choice4 = document.createElement('li');
+    choice4.setAttribute('id', 'choice-4');
+    choice4.classList.add('user-choice');
+    choice4.textContent = questions[currentQuestionIndex].choice4;
     
     console.log(choice1);
     // ADD IT TO OUR DOM
-    userChoices.append(choice1, choice2);
+    userChoices.append(choice1, choice2, choice3, choice4);
    // userChoices.append(choice2);
 
     // we display answer choices (button)
@@ -172,7 +182,8 @@ function showNext() {
     currentQuestionIndex = currentQuestionIndex + 1;
 
     // we need to reset the DOM 
-    document.getElementById("choices").reset();
+    // document.querySelector('li').remove();
+    userChoices.innerHTML = "";
 
     // run show question
     startGame();
