@@ -28,6 +28,7 @@ var submit = document.getElementById("submitbtn");
 let initials = document.getElementById('initials')
 
 var timer = 90;
+var score = 0;
 
 var currentQuestionIndex = 0;
 
@@ -43,68 +44,7 @@ let choice1 = document.getElementById("choice-1");
 let choice2 = document.getElementById("choice-2");
 let choice3 = document.getElementById("choice-3");
 let choice4 = document.getElementById("choice-4");
-// choice1.style.display = "none"
-// choice2.style.display = "none"
-// choice3.style.display = "none"
-// choice4.style.display = "none"
 
-// With a querySelector statement, you can select an element based on a CSS selector. This means you can select elements by ID, class, or any other type of selector. Using the getElementById method, you can only select an element by its ID. Generally, you should opt for the selector that most clearly gets the job done.
-
-
-//timer
-// function countdown() {
-//     var timeLeft = 90;
-// console.log(timeLeft);
-
-//     var timeInterval = setInterval(function () {
-//         if (timeLeft > 1) {
-//             timerEl.textContent = timeLeft + ' seconds remaining';
-//             timeLeft--;
-//         } else if (timeLeft === 1) {
-//             timerEl.textContent = timeLeft + ' second remaining';
-//             timeLeft--;
-//         } else if (timeLeft === 0) {
-           
-//             endQuiz();
-//         } if (currentQuestionIndex+1 === questions.length) {
-
-//             endQuiz();
-            
-//         }
-//     }, 1000)
-// }
-
-
-// (function() {
-//     var sec = 60;
-//     function startTimer(){
-//         console.log('timer suppose to go')
-//         var timer = setInterval(function(){
-//             sec--;
-//             document.getElementById('timerDisplay').innerHTML='00:'+sec;
-//             if (sec < 0) {
-//                 clearInterval(timer);
-//                 alert("Time is up!")
-//             }
-//         }, 1000);
-//     }
-//     document.getElementById('incorrect').addEventListener('click', function() {
-//         sec -= 5;
-//         document.getElementById('timerDisplay').innerHTML='00:'+sec;
-//     });
-//     startTimer();
-// })();
-// <div id="timerDisplay"></div>
-// <button id="incorrect">Simulate Incorrect Answer</button>
-// function startQuiz() {
-//     introSection.classList.add("hide");
-//     questionsDiv.classList.remove("hide");
-//     runQuestions()
-//     setTime ()
-// }
-// var endQuiz = function () {
-
-// }
 
 
 var questions = [
@@ -138,13 +78,13 @@ var questions = [
 
    function setTime() {
     // Sets interval in variable
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
       timer--;
       time.textContent = timer + " seconds left.";
   
       if(timer <= 0) {
         // Stops execution of action at set interval
-        clearInterval(timerInterval);
+        // clearInterval(timerInterval);
         // Calls function to create and append image
         endQuiz()
       }
@@ -178,21 +118,6 @@ function startGame () {
     choice4.textContent = questions[currentQuestionIndex].choice4;
 
 
-    // console.log("click");
-    // choice1.style.display = "block"
-    // choice2.style.display = "block"
-    // choice3.style.display = "block"
-    // choice4.style.display = "block"
-    // what do we want to happen ?
-    // we hide our start button
-    // startButton.classList.add('hide');
-
-    // we grab the first question
-    // we display the text content
-   // userChoices.append(choice2);
-
-    // we display answer choices (button)
-    // user makes a choice --> we capture the input
 
 }
 
@@ -202,8 +127,8 @@ function showNext() {
     // increment the quiestion index
     currentQuestionIndex = currentQuestionIndex + 1;
  console.log("showNext");
- if (currentQuestionIndex > questions.length) {
-    clearInterval(timerInterval);
+ if (currentQuestionIndex >= questions.length) {
+    // clearInterval(timerInterval);
     // Calls function to create and append image
 
     endQuiz ();
@@ -246,7 +171,7 @@ userChoices.addEventListener('click', function(event) {
 function endQuiz () {
     questionsContent.classList.add("hide");
     addInitials.classList.remove("hide");
-    clearInterval(timerInterval)
+    clearInterval(timerInterval);
     score = timer;
     console.log(timer);
     sendMessage();
@@ -255,22 +180,26 @@ function endQuiz () {
 //all questions are answered
 };
 
-var Userinitials = document.getElementById('initials')
+var userInitials = document.getElementById('initials')
 
-// submit.addEventListener("click", function(){
-//     var LAFI = Userinitials.value;
-//     console.log(LAFI);
-//     console.log();
-//     score = timer;
-//     console.log(timer)
-//     localStorage.setItem(LAFI, score);
-//     //probably will be in a for loop - will take out and put in endquiz or make new funcrion
-//     var highScores = localStorage.getItem()
-//     var highScoreslist = document.getElementById("high-scores");
-//     var listEl = document.createElement("li");
-//     listEl.textcontent = highScores;
-//     highScoreslist.append(listEl);
-// })
+submit.addEventListener("click", function(){
+    addInitials.classList.add("hide");
+    showHighScores.classList.remove("hide");
+    var LAFI = userInitials.value;
+    console.log(LAFI);
+    score = timer;
+    console.log(timer)
+    localStorage.setItem(LAFI, score);
+    //probably will be in a for loop - will take out and put in endquiz or make new funcrion
 
+})
+
+function GetHighScores() {
+    var highScores = localStorage.getItem.apply('nl');
+    var finalScore = document.getElementById("high-scores");
+    var listEl = document.createElement("li");
+    listEl.textContent = highScores;
+    finalScore.append(listEl);
+}
 // function GetHighScores () {
  
