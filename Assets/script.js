@@ -13,18 +13,40 @@ const startButton = document.getElementById('start-btn');
 const headerContent = document.getElementById('header-content');
 const questionContentElement = document.getElementById('question-content');
 const title = document.getElementById('title');
-const userChoices = document.querySelector('.choices');
+const userChoices = document.getElementById('choices');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const mainEl = document.querySelector("#main");
+let introSection = document.querySelector('.Intro-section');
+let questionsContent = document.querySelector('.questions-content');
+let addInitials = document.querySelector('.add-initials');
+let showHighScores = document.querySelector('.show-high-scores')
+let time = document.querySelector('.time')
+var submit = document.getElementById("submitbtn");
+
+
+let initials = document.getElementById('initials')
+
 var timer = 90;
+
 var currentQuestionIndex = 0;
 
 var timerEl = document.getElementById('countdown');
 
+var timerInterval;
+
 console.log(window);
 console.log(document.head);
 console.log(document.documentElement);
+
+let choice1 = document.getElementById("choice-1");
+let choice2 = document.getElementById("choice-2");
+let choice3 = document.getElementById("choice-3");
+let choice4 = document.getElementById("choice-4");
+// choice1.style.display = "none"
+// choice2.style.display = "none"
+// choice3.style.display = "none"
+// choice4.style.display = "none"
 
 // With a querySelector statement, you can select an element based on a CSS selector. This means you can select elements by ID, class, or any other type of selector. Using the getElementById method, you can only select an element by its ID. Generally, you should opt for the selector that most clearly gets the job done.
 
@@ -74,8 +96,12 @@ console.log(document.documentElement);
 // })();
 // <div id="timerDisplay"></div>
 // <button id="incorrect">Simulate Incorrect Answer</button>
-
-
+// function startQuiz() {
+//     introSection.classList.add("hide");
+//     questionsDiv.classList.remove("hide");
+//     runQuestions()
+//     setTime ()
+// }
 // var endQuiz = function () {
 
 // }
@@ -106,85 +132,145 @@ var questions = [
         choice4: "<<",
         answer: "==="
     }
+  
    ];
    console.log(questions);
 
-function startGame () {
-    console.log("click");
+   function setTime() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      timer--;
+      time.textContent = timer + " seconds left.";
+  
+      if(timer <= 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        endQuiz()
+      }
+    }, 1000);
+  }
 
+  function sendMessage () {
+    time.textContent = "oopse"
+  }
+
+   startButton.addEventListener('click', startB) 
+
+   function startB () {
+    introSection.classList.add("hide");
+    questionsContent.classList.remove("hide");
+    startGame ();
+    setTime ();
+   }
+
+function startGame () {
+   
+    // introSection.classList.add('hide')
+    // questionContentElement.classList.remove("hide")
+
+    title.textContent = questions[currentQuestionIndex].text;
+
+    
+    choice1.textContent = questions[currentQuestionIndex].choice1;
+    choice2.textContent = questions[currentQuestionIndex].choice2;
+    choice3.textContent = questions[currentQuestionIndex].choice3;
+    choice4.textContent = questions[currentQuestionIndex].choice4;
+
+
+    // console.log("click");
+    // choice1.style.display = "block"
+    // choice2.style.display = "block"
+    // choice3.style.display = "block"
+    // choice4.style.display = "block"
     // what do we want to happen ?
     // we hide our start button
-    startButton.classList.add('hide');
+    // startButton.classList.add('hide');
 
     // we grab the first question
     // we display the text content
-    title.textContent = questions[currentQuestionIndex].text;
-
-    // lets create new buttons / li 
-    let choice1 = document.createElement('li');
-    choice1.setAttribute('id', 'choice-1');
-    choice1.classList.add('user-choice');
-    choice1.textContent = questions[currentQuestionIndex].choice1;
-  //  choice1.addEventListener('click', function() { // code })
-
-    // lets create new buttons / li 
-    let choice2 = document.createElement('li');
-    choice2.setAttribute('id', 'choice-2');
-    choice2.classList.add('user-choice');
-    choice2.textContent = questions[currentQuestionIndex].choice2;
-
-    let choice3 = document.createElement('li');
-    choice3.setAttribute('id', 'choice-3');
-    choice3.classList.add('user-choice');
-    choice3.textContent = questions[currentQuestionIndex].choice3;
-
-    let choice4 = document.createElement('li');
-    choice4.setAttribute('id', 'choice-4');
-    choice4.classList.add('user-choice');
-    choice4.textContent = questions[currentQuestionIndex].choice4;
-    
-    console.log(choice1);
-    // ADD IT TO OUR DOM
-    userChoices.append(choice1, choice2, choice3, choice4);
    // userChoices.append(choice2);
 
     // we display answer choices (button)
     // user makes a choice --> we capture the input
-    userChoices.addEventListener('click', function(event) {
-        // console.log(event);
-        console.log(event.target);
-        console.log(event.target.value);
 
-        // we need to pull out the data
-        let chosen = event.target.textContent;
-        console.log(chosen)
-
-
-        // chcek the user choice vs the correct answer 
-        if(chosen == questions[currentQuestionIndex].answer) {
-            console.log("Correct");
-            // code to run if corrext
-        } else {
-            // code to run if incorrext
-            console.log("Wrong");
-        }
-
-        // What next (?)
-        // WE show the next question
-        showNext()
-    })
 }
 
-startButton.addEventListener('click', startGame)
+
 
 function showNext() {
     // increment the quiestion index
     currentQuestionIndex = currentQuestionIndex + 1;
+ console.log("showNext");
+ if (currentQuestionIndex > questions.length) {
+    clearInterval(timerInterval);
+    // Calls function to create and append image
 
-    // we need to reset the DOM 
-    // document.querySelector('li').remove();
-    userChoices.innerHTML = "";
+    endQuiz ();
+    return;
+ }
+   
 
-    // run show question
-    startGame();
+    console.log(choice1.textContent);
+
+   startGame();
 }
+
+userChoices.addEventListener('click', function(event) {
+    // console.log(event);
+    console.log(event.target);
+    console.log(event.target.value);
+
+    // we need to pull out the data
+    let chosen = event.target.textContent;
+    console.log(chosen)
+
+
+    // chcek the user choice vs the correct answer 
+    if(chosen == questions[currentQuestionIndex].answer) {
+        console.log("Correct");
+        // code to run if corrext
+    } else {
+        // code to run if incorrext
+        console.log("Wrong");
+        timer = timer - 5;
+    }
+
+    // What next (?)
+    // WE show the next question
+    showNext()
+})
+
+
+
+function endQuiz () {
+    questionsContent.classList.add("hide");
+    addInitials.classList.remove("hide");
+    clearInterval(timerInterval)
+    score = timer;
+    console.log(timer);
+    sendMessage();
+
+//timer runs out
+//all questions are answered
+};
+
+var Userinitials = document.getElementById('initials')
+
+// submit.addEventListener("click", function(){
+//     var LAFI = Userinitials.value;
+//     console.log(LAFI);
+//     console.log();
+//     score = timer;
+//     console.log(timer)
+//     localStorage.setItem(LAFI, score);
+//     //probably will be in a for loop - will take out and put in endquiz or make new funcrion
+//     var highScores = localStorage.getItem()
+//     var highScoreslist = document.getElementById("high-scores");
+//     var listEl = document.createElement("li");
+//     listEl.textcontent = highScores;
+//     highScoreslist.append(listEl);
+// })
+
+// function GetHighScores () {
+ 
