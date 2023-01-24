@@ -185,21 +185,52 @@ var userInitials = document.getElementById('initials')
 submit.addEventListener("click", function(){
     addInitials.classList.add("hide");
     showHighScores.classList.remove("hide");
-    var LAFI = userInitials.value;
-    console.log(LAFI);
-    score = timer;
-    console.log(timer)
-    localStorage.setItem(LAFI, score);
-    //probably will be in a for loop - will take out and put in endquiz or make new funcrion
 
+    var userInput = {
+        initials: userInitials.value.trim(),
+        score: timer
+    }
+
+    localStorage.setItem("userInput", JSON.stringify(userInput))
+    console.log(userInput);
+    // var LAFI = userInitials.value;
+    // console.log(LAFI);
+    // score = timer;
+    // console.log(timer)
+    // localStorage.setItem(LAFI, score);
+    //probably will be in a for loop - will take out and put in endquiz or make new funcrion
+    //json(stringify and parse)
+    //let newscore = 
+    // push
+GetHighScores();
 })
 
+
+
 function GetHighScores() {
-    var highScores = localStorage.getItem.apply('nl');
+    var highScores = localStorage.getItem('nl');
     var finalScore = document.getElementById("high-scores");
     var listEl = document.createElement("li");
     listEl.textContent = highScores;
     finalScore.append(listEl);
+    console.log(`${key}: ${value}`)
 }
+
+
+
+//   const type = JSON.parse(localStorage.getItem(TYPE_MAPPING));
+
+//   for (const [key, value] of Object.entries(type)) {
+//   console.log(`${key}: ${value}`);
+//    }
+
+
 // function GetHighScores () {
  
+// const currentColor = localStorage.getItem('bgcolor');
+// const currentFont = localStorage.getItem('font');
+// const currentImage = localStorage.getItem('image');
+
+// document.getElementById('bgcolor').value = currentColor;
+// document.getElementById('font').value = currentFont;
+// document.getElementById('image').value = currentImage;
