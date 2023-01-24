@@ -19,13 +19,14 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const mainEl = document.querySelector("#main");
 let introSection = document.querySelector('.Intro-section');
 let questionsContent = document.querySelector('.questions-content');
-let addInitials = document.querySelector('.add-initials');
+
 let showHighScores = document.querySelector('.show-high-scores')
 let time = document.querySelector('.time')
 var submit = document.getElementById("submitbtn");
 
 
 let initials = document.getElementById('initials')
+let addInitials = document.querySelector('.add-initials');
 
 var timer = 90;
 var score = 0;
@@ -182,17 +183,25 @@ function endQuiz () {
 
 var userInitials = document.getElementById('initials')
 
-submit.addEventListener("click", function(){
+
+function storeHigh() {
+    localStorage.setItem("userInput", JSON.stringify(userInput));
+}
+
+submit.addEventListener("click", function(event){
     addInitials.classList.add("hide");
     showHighScores.classList.remove("hide");
+    event.preventDefault()
 
     var userInput = {
         initials: userInitials.value.trim(),
         score: timer
     }
 
-    localStorage.setItem("userInput", JSON.stringify(userInput))
-    console.log(userInput);
+    userInput.push(userInput);
+    userInput.value = "";
+
+ 
     // var LAFI = userInitials.value;
     // console.log(LAFI);
     // score = timer;
@@ -202,19 +211,23 @@ submit.addEventListener("click", function(){
     //json(stringify and parse)
     //let newscore = 
     // push
-GetHighScores();
+// GetHighScores();
+storeHigh();
+renderHigh();
 })
 
 
+localStorage.setItem("userInput", JSON.stringify(userInput))
+console.log(userInput);
 
-function GetHighScores() {
-    var highScores = localStorage.getItem('nl');
-    var finalScore = document.getElementById("high-scores");
-    var listEl = document.createElement("li");
-    listEl.textContent = highScores;
-    finalScore.append(listEl);
-    console.log(`${key}: ${value}`)
-}
+
+// function GetHighScores() {
+//     var highScores = localStorage.getItem('nl');
+//     var finalScore = document.getElementById("high-scores");
+//     var listEl = document.createElement("li");
+//     listEl.textContent = highScores;
+//     finalScore.append(listEl);
+//     }
 
 
 
