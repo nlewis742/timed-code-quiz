@@ -212,7 +212,7 @@ function init() {
     
     // If todos were retrieved from localStorage, update the todos array to it
     if (storedArray !== null) {
-      todos = storedTodos;
+      todos = storedArray;
         }
     
     renderHigh();}
