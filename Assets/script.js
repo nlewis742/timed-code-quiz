@@ -19,6 +19,7 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const mainEl = document.querySelector("#main");
 let introSection = document.querySelector('.Intro-section');
 let questionsContent = document.querySelector('.questions-content');
+let highScores = document.querySelector('#high-scores')
 
 let showHighScores = document.querySelector('.show-high-scores')
 let time = document.querySelector('.time')
@@ -36,6 +37,8 @@ var currentQuestionIndex = 0;
 var timerEl = document.getElementById('countdown');
 
 var timerInterval;
+
+scoresarray = [];
 
 console.log(window);
 console.log(document.head);
@@ -184,8 +187,40 @@ function endQuiz () {
 var userInitials = document.getElementById('initials')
 
 
-function storeHigh() {
-    localStorage.setItem("userInput", JSON.stringify(userInput));
+function renderHigh() {
+    // var highScores = localStorage.getItem('nl');
+    // var finalScore = document.getElementById("high-scores");
+    // var listEl = document.createElement("li");
+    // listEl.textContent = highScores;
+    // finalScore.append(listEl);
+
+    for (var i = 0; i < scoresarray.length; i++) {
+        var todo = scoresarray[i];
+    
+        var li = document.createElement("li");
+        li.textContent = todo;
+        li.setAttribute("data-index", i);
+    
+
+        highScores.appendChild(li);
+
+}}
+
+function init() {
+    // Get stored todos from localStorage
+    var storedArray = JSON.parse(localStorage.getItem("scoresarray"))||[];
+    
+    // If todos were retrieved from localStorage, update the todos array to it
+    if (storedArray !== null) {
+      todos = storedTodos;
+        }
+    
+    renderHigh();}
+
+function storeHigh(userInput) {
+    var scoresarray = JSON.parse(localStorage.getItem("scoresarray"))||[];
+    scoresarray.push(userInput);
+    localStorage.setItem("scoresarray", JSON.stringify(scoresarray));
 }
 
 submit.addEventListener("click", function(event){
@@ -198,7 +233,7 @@ submit.addEventListener("click", function(event){
         score: timer
     }
 
-    userInput.push(userInput);
+    // userInput.push(userInput);
     userInput.value = "";
 
  
@@ -212,13 +247,13 @@ submit.addEventListener("click", function(event){
     //let newscore = 
     // push
 // GetHighScores();
-storeHigh();
+storeHigh(userInput);
 renderHigh();
 })
 
 
-localStorage.setItem("userInput", JSON.stringify(userInput))
-console.log(userInput);
+// localStorage.setItem("userInput", JSON.stringify(userInput))
+// console.log(userInput);
 
 
 // function GetHighScores() {
@@ -246,4 +281,3 @@ console.log(userInput);
 
 // document.getElementById('bgcolor').value = currentColor;
 // document.getElementById('font').value = currentFont;
-// document.getElementById('image').value = currentImage;
