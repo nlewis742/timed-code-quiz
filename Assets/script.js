@@ -195,13 +195,13 @@ function renderHigh() {
     // finalScore.append(listEl);
 
     for (var i = 0; i < scoresarray.length; i++) {
-        var todo = scoresarray[i];
+        var renderedhighs = scoresarray[i];
     
         var li = document.createElement("li");
-        li.textContent = todo;
+        li.textContent = renderedhighs;
         li.setAttribute("data-index", i);
     
-
+ 
         highScores.appendChild(li);
 
 }}
@@ -249,6 +249,7 @@ submit.addEventListener("click", function(event){
 // GetHighScores();
 storeHigh(userInput);
 renderHigh();
+init();
 })
 
 
