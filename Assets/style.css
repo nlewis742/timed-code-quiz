@@ -6,7 +6,7 @@
 #header-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 20px;
     align-items: center;
 }
@@ -18,9 +18,10 @@ main {
     width: 100vw;
     height:100vh;
     justify-content: center;
-    align-items: center;
-    background-color: rgb(91, 104, 70);
+    /* align-items: center; */
+   
 }
+
 
 .container {
     width: 800px;
@@ -70,3 +71,8 @@ main {
 .hide {
     display: none;
 }
+
+.Intro-section {
+    text-align: center;
+}
+

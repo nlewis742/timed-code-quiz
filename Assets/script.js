@@ -38,7 +38,7 @@ var timerEl = document.getElementById('countdown');
 
 var timerInterval;
 
-scoresarray = [];
+// scoresarray = [];
 
 console.log(window);
 console.log(document.head);
@@ -187,7 +187,7 @@ function endQuiz () {
 var userInitials = document.getElementById('initials')
 
 
-function renderHigh() {
+function renderHigh(scoresarray) {
     // var highScores = localStorage.getItem('nl');
     // var finalScore = document.getElementById("high-scores");
     // var listEl = document.createElement("li");
@@ -196,9 +196,9 @@ function renderHigh() {
 
     for (var i = 0; i < scoresarray.length; i++) {
         var renderedhighs = scoresarray[i];
-    
+    console.log(renderedhighs);
         var li = document.createElement("li");
-        li.textContent = renderedhighs;
+        li.textContent = renderedhighs.initials + ":" + renderedhighs.score;
         li.setAttribute("data-index", i);
     
  
@@ -211,11 +211,11 @@ function init() {
     var storedArray = JSON.parse(localStorage.getItem("scoresarray"))||[];
     
     // If todos were retrieved from localStorage, update the todos array to it
-    if (storedArray !== null) {
-      todos = storedArray;
-        }
+    // if (storedArray !== null) {
+    //   scoresarray = storedArray;
+    //     }
     
-    renderHigh();}
+    renderHigh(storedArray);}
 
 function storeHigh(userInput) {
     var scoresarray = JSON.parse(localStorage.getItem("scoresarray"))||[];
@@ -234,7 +234,7 @@ submit.addEventListener("click", function(event){
     }
 
     // userInput.push(userInput);
-    userInput.value = "";
+    // userInput.value = "";
 
  
     // var LAFI = userInitials.value;
@@ -248,7 +248,7 @@ submit.addEventListener("click", function(event){
     // push
 // GetHighScores();
 storeHigh(userInput);
-renderHigh();
+// renderHigh();
 init();
 })
 
